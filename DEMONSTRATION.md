@@ -1,30 +1,48 @@
-# Présenter SWARM 1.2
+# Présenter SWARM 1.3 — parcours exact en six étapes
 
-## Préparer une présentation reproductible
+Ouvrir http://127.0.0.1:5173/. Si nécessaire, lancer `npm run dev` depuis le projet. Pour préserver durablement votre progression, cliquez **Sauvegarder** avant la démonstration.
 
-Lancer `npm run dev`, puis ouvrir l’adresse locale indiquée. Sauvegarder sa partie avant les expériences. Pour repartir du scénario connu, Paramètres → Entrepôt de démonstration #42, puis mettre en pause immédiatement. Les références A, B, C sont conservées. Les robots disposent désormais de codes lisibles R001 à R006 et les emplacements A-1 à E-8 ; leurs identifiants internes historiques sont conservés.
+**Préparation : Paramètres → Préparer la démonstration UX.** Ce bouton conserve votre partie en mémoire, ouvre Stocks & Commandes en pause, crée Coca-Cola (COCA, 12 €) et Fanta (FANTA, 10 €), prépare A-1, A-2 et A-4 vides et ne lance aucune commande. Les marchandises préparées appartiennent à ce scénario temporaire. **Quitter la démo**, en haut, restaure exactement votre partie d’origine. La préparation ne remplace pas la sauvegarde manuelle.
 
-## Démonstration 1 — Stock et livraison, environ deux minutes
+## 1. Gérer le stock sur la carte
 
-1. Ouvrir **Stocks & Commandes**, onglet **Catalogue produits**. Créer **Coca-Cola**, SKU **COCA**, valeur unitaire **12 €**, encombrement **1**, couleur rouge.
-2. Aller à **Inventaire**, puis **Gérer A-1**. Le scénario initial contient 12 unités d’un ancien produit : choisir 12 et **Retirer les marchandises**, puis confirmer le retrait sans remboursement. Une réservation éventuelle empêche ce retrait ; terminer la mission ou annuler une commande encore non prélevée avant de recommencer.
-3. Choisir Coca-Cola comme produit de l’emplacement et **Configurer l’emplacement**. Ajouter **10 marchandises** : le budget baisse de 80 €, aucun ordre de livraison n’est créé.
-4. Choisir **R001** comme robot prioritaire et appliquer les permissions. Pour tester une exclusivité, cocher le mode réservé et R001, puis appliquer. Les zones propres au robot restent également prises en compte.
-5. Cliquer **Commander depuis cet emplacement**, quantité **5**, priorité urgente, source **A-1**, robot **R001**. Créer la commande. Stock, commande et réservations sont trois notions distinctes.
-6. Ouvrir Simulation, sélectionner R001, reprendre à ×10. Il transporte une unité à la fois, donc effectue plusieurs trajets. À la fin : stock A-1 = **5**, commande livrée = **5/5**, recette de cette commande = **60 €**. Les autres commandes du scénario peuvent aussi générer des recettes.
+Dans **Stocks & Commandes → Entrepôt**, cliquez **A-1**. Dans le panneau droit : choisissez **Coca-Cola**, saisissez **10** dans **Unités à ajouter à la validation**, choisissez **R001** dans **Robot prioritaire**, puis **Enregistrer les modifications**. Le stock réel devient 10 ; le budget baisse de 80 €. Survolez A-1 pour vérifier produit, total, disponible, réservations, capacité et priorité. Les mouvements sont consultables dans le panneau.
 
-Ce parcours est exécuté dans `tests/management.spec.ts`, avec vérification du stock, de la source, du robot, des cinq livraisons et du revenu réel.
+## 2. Ajouter du stock automatiquement
 
-## Démonstration 2 — Incident, réservation et réparation
+Ouvrez **SWARM Copilot — Stock**, saisissez **Ajoute 20 Fanta dans un emplacement libre.**, puis **Analyser** et **Confirmer l’opération**. Fanta est ajouté dans **A-2**, premier emplacement vide compatible par référence ; A-1 contient déjà Coca-Cola et est préservé. La réponse annonce A-2 et son stock de 20, la carte le souligne et le panneau l’affiche. Coût réel : 160 €.
 
-1. Ouvrir **SWARM LAB**, **Expérimentation libre**. L’état au premier accès au Lab est conservé en mémoire, même lorsqu’on passe dans l’éditeur pour résoudre un incident.
-2. Reprendre brièvement jusqu’à une affectation, puis mettre en pause. Choisir **Robot en panne** et le robot visé, puis **Déclencher l’incident**.
-3. Lire le diagnostic : robot concerné, mission, batterie, colis et raison. Avant prélèvement, la réservation est libérée et une commande automatique peut être reprise. Une commande imposant ce robot attend sa réparation. Après prélèvement, le colis reste à bord et ne sera pas livré deux fois.
-4. Cliquer **Réparer · 90 €**, puis reprendre. La réparation débite le budget une seule fois. Un budget insuffisant laisse le robot en panne. Une panne ne peut pas être effacée gratuitement via la mise hors service administrative.
-5. Pour un détournement automatique prêt à présenter, choisir **Visite guidée · Démo intelligente** : Voir les livraisons → Comprendre une mission → Fermer son passage → Provoquer une panne → Observer la recharge → Comparer les stratégies.
-6. **Restaurer l’état initial du Lab** restaure l’instantané de l’expérimentation après confirmation. **Retour à ma partie conservée** quitte la visite guidée. Ces copies en mémoire ne remplacent pas la sauvegarde manuelle.
+## 3. Retrouver une marchandise
 
-Les dix incidents modifient réellement le moteur : panne, batterie critique, obstacle sur trajet, commandes massives, rupture locale de stock, borne unique avec plusieurs demandes, fermeture des accès aux dépôts, immobilisation, pannes simultanées et interdiction d’un emplacement. Les réservations et cases occupées sont protégées : un incident peut rester partiel et son diagnostic le précise. Les solutions du Lab réparent, réapprovisionnent, réouvrent les permissions, achètent un robot ou ouvrent l’éditeur pour ajouter une borne, un dépôt ou retirer un obstacle.
+Dans ce même Copilot, saisissez **Dans quelle case se trouve le Coca-Cola ?**, puis **Analyser**. Il répond **A-1 (10 disponibles)**, met cet emplacement en évidence et ouvre sa fiche. Aucun stock ni commande n’est modifié. Fermez Copilot avec **×** avant la sélection suivante.
+
+## 4. Configurer les robots
+
+Ouvrez **Flotte de robots**. Cliquez **R001**, sur la carte ou dans la liste compacte. Dans **Que peut récupérer ce robot ?**, choisissez **Produits sélectionnés**, cochez **Coca-Cola**, puis **Enregistrer les autorisations**. R001 ne prélèvera plus Fanta. Les permissions des emplacements continuent à s’appliquer.
+
+Ouvrez **SWARM Copilot — Robots** et saisissez **R003 travaille seulement sur A-1 et A-2.** → **Analyser** → **Confirmer l’opération**. Les deux rayonnages sont mis en évidence et la règle réelle est enregistrée. Pour vérifier les données communes, demandez **Quels robots peuvent récupérer le Coca-Cola de A-1 ?**. Fermez le Copilot.
+
+Alternative manuelle : mode **Rayonnages sélectionnés** → **Sélectionner sur la carte** → cliquez les emplacements → **Confirmer la sélection**. **Annuler la sélection** ne modifie aucune règle métier.
+
+## 5. Livrer cinq unités réellement
+
+Revenez dans **Stocks & Commandes**, ouvrez Copilot Stock et demandez **Crée une commande urgente de 5 Coca-Cola depuis A-1.** → **Analyser** → **Confirmer l’opération**. Fermez Copilot. Choisissez **×10**, puis **Reprendre la simulation**.
+
+Dans l’onglet **Commandes**, observez la progression jusqu’à **Terminée, 5/5**. R001 est prioritaire et compatible. Chaque unité est prélevée, transportée et déchargée ; il effectue plusieurs trajets. La fiche A-1 indique ensuite **5 unités restantes** et la commande a généré **60 €**. Mettez la simulation en pause.
+
+## 6. Provoquer et résoudre un incident
+
+Ouvrez **SWARM LAB → Expérimentation libre**. Cliquez la carte **Robot en panne**, sélectionnez R001 sur la carte, puis **Déclencher l’incident**. Le robot s’arrête réellement ; le panneau indique son état, sa mission éventuelle et les commandes touchées. Après la livraison de l’étape précédente, il peut n’avoir aucune mission : le diagnostic dit alors zéro commande touchée.
+
+Cliquez **Réparer · 90 €**. Le budget baisse exactement de 90 € et l’incident affiche **Résolu**. Reprenez la simulation pour observer le fonctionnement. Pour tester plusieurs incidents, choisissez **Passage bloqué**, cliquez une case libre, puis déclenchez : un véritable obstacle apparaît. Le diagnostic de cet incident propose **Retirer l’obstacle**, sans solutions de stock ou de batterie sans rapport.
+
+**Restaurer l’état initial du Lab** revient à l’instantané du premier accès au laboratoire. **Quitter la démo**, en haut, revient à votre partie personnelle conservée. Ces retours n’écrivent pas automatiquement dans la sauvegarde manuelle.
+
+Ce parcours complet, y compris préparation par le bouton, livraison, réparation et retour exact à la partie, est vérifié dans `tests/ux.spec.ts`.
+
+## Visite guidée préservée
+
+Dans SWARM LAB : **Visite guidée · Démo intelligente** → Voir les livraisons → Comprendre une mission → Fermer son passage → Provoquer une panne → Observer la recharge → Comparer les stratégies. Le moteur reste réel, les incidents peuvent attendre les conditions nécessaires et le bouton de retour préserve la partie d’origine.
 
 ## Démonstration 3 — Arena, 50 commandes et 2 minutes
 
@@ -37,14 +55,12 @@ Les dix incidents modifient réellement le moteur : panne, batterie critique, ob
 
 Le scénario à 50 commandes est vérifié deux fois dans Playwright. Avec 22 commandes initiales et 2 minutes, les scénarios de référence 2026 et 77 produisent respectivement une victoire de Smart Balance et de Sprint, vérifiée par les tests métier. Les chiffres dépendent du scénario et de la charge choisis ; ils ne sont jamais injectés dans l’interface.
 
-## Copilot local
+## Exemples Copilot et limites
 
-Ouvrir **SWARM Copilot**. Exemples : « Crée un produit Fanta. », « Ajoute 20 Fanta dans A-2. », « Seul R002 peut travailler sur A-2. », « Mets R001 prioritaire sur A-1. », « Combien de Coca-Cola reste-t-il ? », « Crée une commande urgente de 5 Coca-Cola avec R001. », « Montre les emplacements presque vides. »
+Assistant local à intentions prédéfinies, sans LLM externe. Les modifications passent par un aperçu et une confirmation ; les contraintes sont revérifiées. Exemples : « Crée un produit Eau. », « Crée Eau et ajoute 15 unités dans A-4. », « Ajoute-moi un stock de 10 Coca-Cola. », « Montre-moi les rayonnages presque vides. », « Le robot 1 peut chercher uniquement du Coca-Cola. », « Autorise R001 sur A-3. », « Envoie R001 se recharger. ».
 
-Ce parseur local reconnaît des intentions prédéfinies et n’est pas une IA générative. Chaque modification présente un aperçu et attend **Confirmer l’opération** ; les contraintes sont revérifiées. Un emplacement contenant un autre produit doit être vidé avant changement. « Mets 10… » ajoute 10 unités, comme « Ajoute 10… ». Une demande inconnue ou ambiguë n’exécute rien.
+Un emplacement contenant des marchandises ou réservations ne peut changer silencieusement de produit. Sans capacité ni emplacement compatible, l’opération est refusée sans mutation. Un produit encore inconnu peut être créé avec les paramètres clairement annoncés dans la confirmation.
 
-## Limites à annoncer
+Grille 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 50 unités par commande et un colis par trajet. Lab : 12 incidents actifs et 100 entrées maximum par expérience. Une saturation retire réellement les autres bornes ; la restauration du Lab les récupère. Un dépôt peut rester accessible si des cases occupées empêchent un blocage complet. Les permissions concernent le prélèvement, pas les couloirs.
 
-Grille 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 50 unités par commande et un colis par trajet. Les permissions concernent les emplacements de prélèvement, pas l’interdiction de circuler dans un couloir. Les mouvements sont conservés sur les 100 dernières opérations par emplacement et le journal sur 160 événements. Des couloirs définitivement fermés demandent une intervention.
-
-Sauvegarde locale manuelle unique, reprise en pause. Les instantanés temporaires du Lab et de la visite guidée, les intentions Copilot non confirmées et la progression des duels disparaissent au rechargement. Enregistrer explicitement une expérimentation remplace la même sauvegarde manuelle. Aucun compte, service payant, API LLM ou déploiement public.
+Sauvegarde locale unique et manuelle, reprise en pause. Les parties conservées, l’historique et l’instantané du Lab, les confirmations en attente et les duels disparaissent au rechargement. Cliquer Sauvegarder pendant une expérience remplace volontairement la même sauvegarde. Aucun backend, compte, service payant ni déploiement public.

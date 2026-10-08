@@ -2,13 +2,13 @@
 
 SWARM utilise React, TypeScript et Vite. Le moteur métier est indépendant des composants React. Le rendu de la carte utilise SVG pour conserver une grille inspectable, nette à tout niveau de zoom et sans dépendance graphique lourde.
 
-## Gestion métier 1.2
+## Gestion métier 1.3
 
 Le catalogue fait partie de SimulationState, contrairement à la constante PRODUCTS qui ne sert que de base A/B/C compatible et de scénario généré. Les emplacements ont un identifiant interne historique et un code stable A-1, A-2… ; les robots conservent leurs IDs et reçoivent des codes R001… jamais réutilisés dans une session. Les compteurs persistent.
 
 Stock total = marchandises sur rayonnage. Réservé = robots affectés mais sans colis. Disponible = total − réservé. Le prélèvement décrémente le stock et enregistre un mouvement ; le colis devient une réservation de commande transportée. Modifier les permissions libère les missions non prélevées devenues interdites. Les colis déjà sécurisés terminent leur livraison. Une commande avec robot imposé ne peut dépasser le stock auquel il est autorisé.
 
-L’affectation applique produit, source choisie, permissions croisées robot/emplacement et autonomie. Une priorité d’emplacement ou de zone admissible est considérée avant le score original de stratégie. Sans priorité, les scores Nearest et Balanced restent identiques à la version antérieure. Le cache de routes utilise le robot et la liste effective d’emplacements autorisés.
+L’affectation applique produit, source choisie, permissions croisées produit/robot/emplacement et autonomie. Une priorité d’emplacement ou de zone admissible est considérée avant le score original de stratégie. Sans priorité, les scores Nearest et Balanced restent identiques à la version antérieure. Le cache de routes utilise le robot et la liste effective d’emplacements autorisés.
 
 Chaque commande peut fixer source, robot et dépôt. La valeur unitaire est figée à sa création, le revenu est payé après livraison complète une seule fois. Un colis par robot, plusieurs trajets pour plusieurs unités. Les coûts de stock et réparation sont centralisés dans PRICES. La suspension administrative est distincte d’une panne et ne permet pas de contourner une réparation payante.
 
@@ -17,9 +17,14 @@ Le format externe version 1 reste compatible ; managementVersion 2 identifie l�
 ## Séparation des responsabilités
 
 - `src/Management.tsx` : inventaire, catalogue, commandes et administration de la flotte.
-- `src/copilot.ts`, `src/CopilotView.tsx` : parseur local sans LLM, aperçu, confirmation et revalidation.
+- `src/copilot.ts`, `src/copilotIntents.ts`, `src/CopilotView.tsx` : un parseur partagé sans LLM, contextes Stock et Robots, informations, aperçu, confirmation et revalidation.
+- `src/operations.ts` : validation atomique de configuration/stock/permissions sur un clone, puis application au moteur réel ; placement automatique déterministe, même produit avec capacité puis emplacement vide par référence.
+- `src/FleetMap.tsx` : carte de flotte, permissions par produits ou emplacements et sélection multiple transactionnelle.
+- `src/labSession.ts` : paramètres d’incident, transactions, conséquences capturées, résolutions dérivées de l’état courant et limites 12 actifs / 100 entrées par expérience.
+- `src/managementDemo.ts` : scénario UX déterministe, isolé de la partie conservée par App.
+- `src/ux.css` : mise en page des cartes, panneaux, infobulles et cartes d’incident, responsive.
 - `src/arena.ts` : préparation déterministe de la charge commune et limites de stock.
-- `src/incidents.ts`, `src/LabView.tsx` : incidents réels, diagnostic et solutions du laboratoire.
+- `src/incidents.ts`, `src/LabView.tsx` : cartes d’incident, sélection contextuelle, historique et solutions du laboratoire.
 - `src/engine.ts` : état, navigation, progression des missions, règles de stock, énergie, économie et édition.
 - `src/pathfinding.ts` : algorithme A* indépendant du rendu.
 - `src/persistence.ts` : sauvegarde et chargement d'instantanés validés.
@@ -73,3 +78,11 @@ La carte est fixe (24 × 16), la flotte est limitée à 24 robots et la file à 
 
 
 Le Lab conserve son instantané initial dans App afin de permettre un passage vers l’éditeur puis une restauration. Cette copie, la partie d’origine de la visite guidée, les intentions Copilot en attente et les duels sont temporaires en mémoire. La sauvegarde manuelle reste la seule persistance de la partie.
+
+## Transactions et autorisations
+
+Le clone de transaction est restauré et validé avant application. Une opération refusée conserve intégralement l’état et le budget, même pour une création de produit suivie d’un ajout de stock. Les objets de rayonnages, robots et commandes existants gardent leur identité lors de la validation pour préserver les clients métier. Les modifications manuelles composées et Copilot utilisent ces mêmes fonctions et les API Engine.
+
+`allowedProducts` est optionnel : absent signifie tous les produits, tableau vide signifie aucun. Son intersection avec `allowedLocations` et `allowedRobots` s’applique aux missions de prélèvement. La migration accepte les anciennes sauvegardes sans ce champ ; les SKU inconnus sont rejetés. Les priorités restent des préférences indépendantes. `missionReadyRobots` vérifie stock, permissions, batterie et existence d’un trajet au produit puis au dépôt pour les demandes de mission du Copilot. Une commande créée peut attendre un robot occupé ; aucune livraison immédiate n’est prétendue.
+
+Le Lab garde sa liste et son instantané dans App pendant la navigation. Chaque incident capture les robots, stocks, obstacles et commandes touchés à son déclenchement, puis relit leur état pour le diagnostic. Un détour n’est pas assimilé à la suppression d’un obstacle ; une batterie n’est rétablie qu’après recharge suffisante. Saturation conserve la borne choisie, retire les autres et envoie les robots sans colis en recharge : ce scénario modifie réellement le plan et son résultat le dit explicitement. Le bouton de restauration annule ces effets. Les sessions temporaires ne sont pas persistées.

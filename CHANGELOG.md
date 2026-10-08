@@ -1,5 +1,15 @@
 # Historique des fonctionnalités
 
+## 1.3.0 — 9 octobre 2026 — Cartes interactives et Copilot contextuel
+
+- Stocks : carte principale, identifiants stables lisibles, infobulles réelles, panneau de rayonnage et enregistrement atomique produit/stock/capacité/priorité ; liste et opérations avancées conservées.
+- Flotte : carte et liste compacte, autorisations par produit ou rayonnage, sélection multiple avec confirmation et annulation, actions liées à l’état et missions avancées conservées.
+- Copilot partagé Stock / Robots : français local, placement automatique déterministe, recherche et surbrillance, aliases robot 1, restrictions, missions réelles avec vérification d’accès et batterie ; aucune mutation avant confirmation.
+- Lab : dix cartes d’incident, paramètres contextuels, cibles choisies sur la carte, historique en mémoire, diagnostics et solutions ciblés, résolution fondée sur le moteur, limites et restauration.
+- Préparation d’une démonstration UX reproductible avec partie conservée et bouton de retour ; visite guidée et Arena préservées.
+- 18 nouveaux tests métier et cinq nouveaux parcours navigateur ; 68 tests métier et 24 parcours Chromium au total. Documentation et captures actualisées.
+- Point de restauration préalable : fbfda91, tag restore/swarm-1.2-before-ux.
+
 ## 1.2.0 — Gestion d’entrepôt, Arena et Lab
 
 - Pages complètes Stocks & Commandes, Flotte, recharge, Analytics et Événements ; navigation sans doublon de démo.

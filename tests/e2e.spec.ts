@@ -39,10 +39,10 @@ test('order creation validates inputs and laboratory failure changes the real fl
   await page.getByRole('button', { name: 'Créer la commande', exact: true }).click();
   await expect(page.getByTestId('stock-management').locator('tbody tr')).toHaveCount(before + 1);
   await page.getByRole('button', { name: 'SWARM LAB', exact: false }).click();
-  await page.getByLabel('Scénario d’incident').selectOption('Commandes massives');
-  await page.getByLabel('Nombre (charge / pannes)').fill('100');
+  await page.locator('.incident-cards button').filter({hasText:'Commandes massives'}).click();
+  await page.getByLabel('Nombre de commandes').fill('100');
   await page.getByRole('button',{name:'Déclencher l’incident',exact:true}).click();
-  await page.getByLabel('Scénario d’incident').selectOption('Robot en panne');
+  await page.locator('.incident-cards button').filter({hasText:'Robot en panne'}).click();
   await page.getByRole('button',{name:'Déclencher l’incident',exact:true}).click();
   await page.getByRole('button', { name: 'Flotte de robots', exact: true }).click();
   await expect(page.locator('.management-page')).toContainText('En panne');
@@ -106,7 +106,7 @@ test('strategy comparison runs both real scenarios without mutating the paused w
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
   const before = await page.evaluate(() => localStorage.getItem('swarm-save'));
   await page.getByRole('button', { name: 'SWARM LAB', exact: false }).click();
-  await page.getByRole('button', { name: 'Comparer les stratégies · 10 min', exact: true }).click();
+  await page.getByText('Outils de comparaison et aménagement',{exact:true}).click();await page.getByRole('button', { name: 'Comparer les stratégies · 10 min', exact: true }).click();
   await expect(page.locator('.experiment-results .order-card')).toHaveCount(2, { timeout: 25_000 });
   await expect(page.locator('.experiment-results')).toContainText('Batterie + distance');
   await expect(page.locator('.experiment-results')).toContainText('Robot le plus proche');
