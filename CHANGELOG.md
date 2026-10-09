@@ -1,3 +1,11 @@
+# Version 1.4 — stocks, commandes et approvisionnement
+
+- Partie normale vide et démonstrations explicitement chargées ; sauvegardes existantes conservées.
+- Ajout de stock automatique ou manuel, création simultanée du produit, aperçu du coût et du placement, répartition selon capacité et accès, opération atomique.
+- Un seul champ de quantité dans le panneau du rayonnage ; enregistrement des paramètres sans ajout de marchandises.
+- Grandes quantités exactes, livraisons progressives, validation détaillée des commandes, Sandbox gratuit limité aux stocks et comptabilité explicite.
+- Copilot partage les services métier ; contrôles des quantités, anciennes sauvegardes et réservations conservés.
+
 # Historique des fonctionnalités
 
 ## 1.3.0 — 9 octobre 2026 — Cartes interactives et Copilot contextuel

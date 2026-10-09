@@ -1,6 +1,6 @@
 # SWARM — Warehouse Management & Intelligence
 
-**Version 1.3** : plateforme locale de gestion d’entrepôt robotisé. Le moteur existant, A*, les collisions, les batteries, les missions et les animations sont conservés. Stocks, catalogue, permissions, flotte, Arena et Lab utilisent les opérations métier réelles.
+**Version 1.4** : plateforme locale de gestion d’entrepôt robotisé. Le moteur existant, A*, les collisions, les batteries, les missions et les animations sont conservés. Stocks, catalogue, permissions, flotte, Arena et Lab utilisent les opérations métier réelles.
 
 ## Lancer
 
@@ -12,6 +12,20 @@ npm run dev
 ```
 
 Ouvrir l’adresse locale affichée par Vite, généralement http://127.0.0.1:5173. La monnaie est fictive. Aucun service externe ni paiement n’est requis.
+
+## Stock et premières livraisons
+
+Une nouvelle partie normale démarre sans commande, sans marchandise et sans revenu. Les six robots conservent leurs batteries initiales. Les sauvegardes existantes sont restaurées ; les charges de démonstration sont explicites dans Paramètres.
+
+1. Stocks & Commandes → Produits : créer Coca-Cola, SKU COCA, valeur 12. Cela ne crée aucun stock.
+2. **+ Ajouter du stock** : choisir Coca-Cola, quantité 100, placement automatique ; vérifier le coût de 800 €, puis confirmer. Pour ajouter 50 au même endroit, choisir Manuel et cliquer A-1 sur la carte.
+3. Commandes : Coca-Cola, quantité 10, source/robot/dépôt automatiques ; créer la commande, reprendre et choisir ×10. La recette de 120 € arrive après livraison complète ; le stock passe de 150 à 140.
+4. Une commande manuelle impose le robot choisi. Les erreurs de stock, permissions, autonomie ou trajet sont affichées avant validation.
+5. Le panneau de rayonnage utilise **Enregistrer les modifications** pour ses paramètres uniquement ; une quantité séparée sert à ajouter ou retirer les marchandises.
+
+Les ajouts 1 000 et 10 000 sont exacts. Le placement automatique privilégie le même produit puis les emplacements vides accessibles, et répartit les quantités si des capacités finies le demandent. Un échec ne crée ni produit, ni mouvement, ni débit. Les nouveaux rayonnages sont sans plafond métier ; les anciennes capacités configurées sont préservées. Garde-fou numérique : 1 milliard d’unités par rayonnage/ajout, commandes jusqu’à 1 million, encombrement jusqu’à 10. Les quantités sont des entiers sûrs ; aucun objet graphique par unité.
+
+**Sandbox : approvisionnement gratuit** est facultatif. Il dispense uniquement du coût des marchandises ; achats, réparations et fonctionnement restent payants. La somme non débitée et le mode sont visibles dans les finances et sauvegardés. Copilot utilise le même service, par exemple « Crée Eau et ajoute 1 000 unités dans un rayonnage libre ».
 
 ## Rubriques
 
@@ -50,8 +64,8 @@ Les captures se trouvent dans `artifacts/`, dont [carte des stocks](artifacts/sw
 
 La sauvegarde est manuelle, locale au navigateur et unique. Le rechargement restaure la dernière sauvegarde en pause. Les anciennes sauvegardes sans catalogue, emplacements et permissions sont migrées au chargement ; les données incohérentes sont rejetées. Sauvegarder explicitement une démo ou un incident remplace ce même emplacement.
 
-Les copies temporaires du Lab et de la visite guidée ainsi que les duels ne survivent pas au rechargement. Carte fixe 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 50 unités par commande. Un colis par trajet ; les grandes commandes nécessitent plusieurs trajets. Les permissions concernent le prélèvement, pas la circulation dans les couloirs. La coordination locale peut nécessiter de rouvrir un passage complètement fermé. Aucun backend, cloud, multi-utilisateur ou fonctionnement hors onglet.
+Les copies temporaires du Lab et de la visite guidée ainsi que les duels ne survivent pas au rechargement. Carte fixe 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 1 000 000 unités par commande. Un colis par trajet ; les grandes commandes nécessitent plusieurs trajets. Les permissions concernent le prélèvement, pas la circulation dans les couloirs. La coordination locale peut nécessiter de rouvrir un passage complètement fermé. Aucun backend, cloud, multi-utilisateur ou fonctionnement hors onglet.
 
 [Architecture](ARCHITECTURE.md) · [Historique](CHANGELOG.md) · [Validation](VALIDATION.md) · [Présentation](DEMONSTRATION.md)
 
-Point de restauration Git créé avant la refonte UX : commit `fbfda91`, tag `restore/swarm-1.2-before-ux`. Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour les fichiers concernés.
+Point de restauration Git créé avant cette finalisation : commit `6b05bf0`, tag `restore/swarm-1.3-before-supply`. Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour les fichiers concernés.

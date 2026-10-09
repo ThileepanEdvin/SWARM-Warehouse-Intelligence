@@ -1,7 +1,10 @@
+import {Engine} from '../src/engine';
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
+  await page.addInitScript(snapshot=>{if(!localStorage.getItem('swarm-save'))localStorage.setItem('swarm-save',snapshot)},new Engine(42,{demo:true}).serialize());
   await page.goto('/');
+  await page.getByTitle('Reprendre (Espace)').click();
 });
 
 test('real playback pauses, advances, and preserves an explicitly saved state', async ({ page }) => {
@@ -36,7 +39,8 @@ test('order creation validates inputs and laboratory failure changes the real fl
   await page.getByRole('button', { name: 'Créer la commande', exact: true }).click();
   await expect(page.getByTestId('stock-management').locator('tbody tr')).toHaveCount(before + 1);
   await page.getByLabel('Quantité', { exact: true }).fill('-1');
-  await page.getByRole('button', { name: 'Créer la commande', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Créer la commande', exact: true })).toBeDisabled();
+  await expect(page.locator('#order-validation')).toContainText('Quantité invalide');
   await expect(page.getByTestId('stock-management').locator('tbody tr')).toHaveCount(before + 1);
   await page.getByRole('button', { name: 'SWARM LAB', exact: false }).click();
   await page.locator('.incident-cards button').filter({hasText:'Commandes massives'}).click();

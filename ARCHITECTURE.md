@@ -1,3 +1,13 @@
+# Évolution 1.4
+
+`limits.ts` définit les limites entières sûres. `supply.ts` prépare un placement déterministe en lecture seule : même SKU puis vide, capacité selon encombrement, autorisation et accès par A*. `operations.ts` applique le plan sur une copie validée puis conserve les identités des entités lors du commit. `SupplyForm.tsx` et `copilotIntents.ts` partagent ces opérations. `Management.tsx` sépare paramètres, approvisionnement et commandes.
+
+`Engine(seed)` démarre vide ; `Engine(seed, {demo:true})` conserve les fixtures de démonstration. `orderValidation` vérifie stock total/accessible, robot, autonomie et dépôts ; `createOrder` utilise cette validation. Les générateurs explicites de démonstration/Arena/Lab gardent la possibilité de créer une charge diagnostique bloquée. Les commandes restent un seul enregistrement et un colis réel par trajet, sans expansion par quantité.
+
+`capacity:null` désigne le stockage sans plafond métier, limité au garde-fou numérique. Les capacités historiques restent finies. `supplyMode` et `subsidizedSupply` sont optionnels pour la compatibilité des sauvegardes ; absence de mode signifie approvisionnement payant. Les réservations et colis en transit sont protégés. La gratuité ne modifie pas la règle de dépenses d’équipement.
+
+Point de restauration : `6b05bf0`, tag `restore/swarm-1.3-before-supply`.
+
 # Architecture SWARM
 
 SWARM utilise React, TypeScript et Vite. Le moteur métier est indépendant des composants React. Le rendu de la carte utilise SVG pour conserver une grille inspectable, nette à tout niveau de zoom et sans dépendance graphique lourde.

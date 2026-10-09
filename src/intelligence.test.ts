@@ -55,7 +55,7 @@ describe('real decision instrumentation', () => {
     expect(clone.serialize()).toBe(engine.serialize());
   });
   it('accepts old snapshots and rejects damaged new visual metadata', () => {
-    const original = new Engine(); original.tick(10);
+    const original = new Engine(42,{demo:true}); original.tick(10);
     const data = JSON.parse(original.serialize());
     delete data.signals; delete data.signalCounter;
     for (const robot of data.robots) { delete robot.assignment; delete robot.decision; delete robot.previousRoute; }
@@ -67,7 +67,7 @@ describe('real decision instrumentation', () => {
     expect(() => Engine.restore(JSON.stringify(brokenSignal))).toThrow();
   });
   it('limits workloads, rejects duplicate placements, and handles simultaneous faults', () => {
-    const engine = new Engine(); engine.state.budget = 100000;
+    const engine = new Engine(42,{demo:true}); engine.state.budget = 100000;
     while (engine.state.robots.length < 24) expect(engine.buyRobot().ok).toBe(true);
     expect(engine.buyRobot().ok).toBe(false);
     engine.generateOrders(100); engine.generateOrders(100);
@@ -81,23 +81,25 @@ describe('real decision instrumentation', () => {
     expect(() => Engine.restore(engine.serialize())).not.toThrow();
   });
   it('explains unavailable stock and a sealed warehouse, then recovers after reopening', () => {
-    const shortage = new Engine(); shortage.state.orders = [];
+    const shortage = new Engine(42,{demo:true}); shortage.state.orders = [];
+    shortage.createOrder('A', 3);
     shortage.state.tiles.filter(t => t.kind === 'shelf').forEach(t => { t.stock = 0; });
-    shortage.createOrder('A', 3); shortage.tick(10);
+    shortage.tick(10);
     expect(shortage.state.orders[0].status).toBe('blocked');
     expect(shortage.state.orders[0].blockReason).toContain('Stock');
     shortage.restock('A', 20); shortage.tick(300);
     expect(shortage.state.orders[0].status).toBe('completed');
-    const sealed = new Engine(); sealed.state.orders = [];
+    const sealed = new Engine(42,{demo:true}); sealed.state.orders = [];
+    sealed.createOrder('A', 1);
     for (let y = 0; y < 16; y++) expect(sealed.place('wall', 4, y).ok).toBe(true);
-    sealed.createOrder('A', 1); sealed.tick(20);
+    sealed.tick(20);
     expect(sealed.state.orders[0].blockReason).toContain('trajet');
     expect(sealed.state.robots.every(r => r.x < 4)).toBe(true);
     sealed.removeAt(4, 6); sealed.tick(300);
     expect(sealed.state.orders[0].status).toBe('completed');
   });
   it('shares a single charging station without sharing a cell', () => {
-    const engine = new Engine();
+    const engine = new Engine(42,{demo:true});
     const chargers = engine.state.tiles.filter(t => t.kind === 'charger');
     chargers.slice(1).forEach(t => engine.removeAt(t.x, t.y));
     engine.state.robots.forEach(r => engine.setBattery(r.id, 10));

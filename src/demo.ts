@@ -3,7 +3,7 @@ import type { Point, Result } from './engine';
 
 /** Reproducible workload; changes go through the normal business APIs. */
 export function createIntelligentDemo(seed = 2026): Engine {
-  const engine = new Engine(seed);
+  const engine = new Engine(seed,{demo:true});
   const batteries = [38, 96, 52, 88, 68, 81];
   engine.state.robots.forEach((r, i) => engine.setBattery(r.id, batteries[i]));
   engine.generateOrders(10);

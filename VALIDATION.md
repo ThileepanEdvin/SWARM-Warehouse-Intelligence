@@ -1,47 +1,31 @@
-# Vérification de SWARM 1.3 — 9 octobre 2026
+# Validation de SWARM 1.4 — 9 octobre 2026
 
-Contrôles exécutés sous Windows avec Node.js et Chromium Playwright. Le moteur de simulation et les tests existants sont conservés. Point de restauration créé avant modification : `fbfda91`, tag `restore/swarm-1.2-before-ux`.
+Contrôles réellement exécutés sur le projet Windows local. Point de restauration : commit `6b05bf0`, tag `restore/swarm-1.3-before-supply`.
 
-| Contrôle | Résultat |
-| --- | --- |
-| TypeScript | `npm run typecheck` et compilation `tsc -b` réussies |
-| ESLint | Réussi |
-| Production Vite | 1 607 modules ; JS 399,55 kB / gzip 121,60 kB ; CSS 48,28 kB / gzip 11,33 kB |
-| Vitest | 68 tests réussis, 7 suites ; 50 antérieurs et 18 nouveaux tests UX/métier |
-| Chromium | 24 parcours : 19 antérieurs préservés, 5 nouveaux parcours UX |
-| Audit des rubriques | HTTP 200, aucune erreur de console ni exception JavaScript sur le parcours audité |
-| Visuel | Captures inspectées à 1920 × 1080, 1280 × 900 et 390 × 844 ; cartes visibles, panneaux accessibles et absence de débordement horizontal dans les rubriques contrôlées |
-| Git | `git diff --check` réussi ; point de restauration vérifié |
+- TypeScript (`npm run typecheck`, `tsc -b`) : réussi.
+- ESLint : réussi.
+- Production (`npm run build`) : réussi, 1 611 modules ; JS 410,88 kB / gzip 124,79 kB ; CSS 50,17 kB / gzip 11,75 kB.
+- Vitest : 87 tests dans 8 suites. Les fixtures historiques utilisent explicitement le mode démonstration ; les nouveaux tests démarrent un moteur normal vide.
+- Playwright Chromium : 27 parcours réussis (1 min 18 s environ), dont 3 nouveaux parcours d’approvisionnement.
+- Git : `git diff --check` réussi après nettoyage des fins de fichier.
+- Audit du serveur local : HTTP 200, `consoleErrors: []`.
 
-## Nouveaux contrôles métier
+## Contrôles métier
 
-- Enregistrement atomique du produit, stock, capacité et priorité, avec vrai mouvement et débit de budget. Aucune modification en cas de capacité insuffisante, budget insuffisant ou remplacement interdit.
-- Placement automatique déterministe : même produit avec place, puis emplacement vide ; création et stockage simultanés d’Eau ; absence de mutation si aucun emplacement compatible.
-- Recherche des emplacements, quantités et rayonnages presque vides ; ambiguïté refusée sans création arbitraire de mission ; revalidation d’une opération en attente après changement de budget.
-- Alias « robot 1 », restriction par produit, restriction par rayonnage, intersection avec les accès du rayonnage, autorisation supplémentaire sans effacer les autres règles.
-- Affectation réelle excluant R001 des missions Fanta quand il est limité au Coca-Cola ; livraison avec un autre robot compatible. Changement des permissions avant prélèvement libérant la réservation ; colis déjà transporté conservé et livré.
-- Demande de mission refusée si batterie insuffisante ou dépôt inaccessible ; commande urgente réelle avec source imposée ; migration des sauvegardes sans `allowedProducts`, SKU inconnus refusés.
-- Plusieurs incidents indépendants, réparation facturée une seule fois, obstacle réel sur case choisie, occupation refusée sans mutation, rupture conservant les réservations et identifiant les commandes touchées, saturation réelle d’une borne et restauration exacte.
-- Paramètres invalides refusés et limite de douze incidents actifs vérifiée.
+Les 19 nouveaux tests vérifient zéro commande/revenu/stock/cargo au démarrage et robots disponibles, catalogue sans marchandises, restauration exacte d’une ancienne sauvegarde avec colis en transit, stocks 100/50/1 000/10 000 et garde-fou numérique, capacité/encombrement et répartition sur plusieurs rayonnages, permissions et chemins, absence de mutation en cas de quantité/budget/SKU invalide, paramètres enregistrés sans stock, réservations protégées, finances Sandbox et équipement payant, commandes automatiques et manuelles, livraison progressive de 100 unités, erreurs détaillées en lecture seule, sauvegarde de grandes quantités avec mission en cours et Copilot partageant le même service.
 
-Les invariants antérieurs restent actifs : A*, absence de collision et d’échange direct, économie, batteries, pannes, recharge, livraisons uniques, saturation à 24 robots, capacités/encombrement, catalogue, priorités, source/robot/dépôt choisis, suspensions administratives et protection des réparations payantes, références stables, corruption et migration des sauvegardes. Arena et optimisation restent testées sur des copies indépendantes et reproductibles.
+## Parcours réels dans Chromium
 
-## Nouveaux parcours navigateur
+1. Nouvelle partie sans sauvegarde : zéro commande, recette et colis ; six batteries initiales. Création COCA sans stock, ajout automatique 100 puis manuel 50 dans A-1, débit exact 1 200 €. Commande automatique de 10 livrée, puis manuelle de 5 exclusivement par le robot choisi : stock 135, revenu 180 €. Ajouts Sandbox 1 000 et 10 000 : stock 11 135, coût non débité 88 000 €, budget inchangé par les ajouts, toujours deux commandes et six robots. Sauvegarde/rechargement exacts, aucune exception JavaScript.
+2. Stock insuffisant et quantité négative/décimale : explication visible et validation désactivée ; raccourci d’approvisionnement, paramètres sans mouvement, absence du champ doublon. Aucune commande créée après refus.
+3. Copilot crée Eau et 1 000 unités dans un emplacement libre ; formulaire mobile crée Fanta et 10 000 unités. Les stocks sont exacts et aucune commande n’est créée. Largeur 390 pixels sans débordement horizontal.
 
-1. **Présentation complète en six étapes**, lancée par Paramètres → Préparer la démonstration UX : Coca-Cola dans A-1 via enregistrement composé, Fanta ajouté automatiquement dans A-2, recherche de Coca-Cola, autorisations par produit et Copilot de flotte, cinq livraisons réelles (stock final cinq, recette 60 €), panne depuis la carte du Lab, réparation facturée 90 € et retour exact à la partie conservée.
-2. **Sélection multiple** : choix A-1/A-2, annulation sans mutation, confirmation réelle, sauvegarde, rechargement et règles restaurées.
-3. **Incidents contextuels** : seuls les paramètres utiles sont visibles ; panne et obstacle distincts ; solutions ciblées ; résolution indépendante ; historique conservé après navigation ; restauration exacte.
-4. **Responsive** : Stocks, Flotte et Lab à 1280 et 390 pixels, carte visible et absence de débordement ; Copilot utilisable sur mobile.
-5. **Actions de flotte** : panne réelle, recharge masquée en panne, unique réparation avec débit exact, suspension administrative, réactivation et absence de réparation gratuite.
-
-Les 19 parcours antérieurs sont conservés ; seuls les sélecteurs des onglets, cartes d’incident et sections avancées ont été adaptés. Ils couvrent notamment les sauvegardes, achats et obstacles, commandes autonomes, catalogue, Lab, visite guidée, Arena 50 commandes et rejeu, caméras, raccourcis et pause pendant chargement.
+Les 24 parcours précédents restent présents : pause, sauvegardes/corruption, équipements/obstacles, stock/catalogue/permissions, missions réelles, Copilot, Lab/pannes/ruptures/restauration, visite guidée, Arena 50 commandes et rejeu identique, actions de flotte et présentation complète. Les validations refusées sont vérifiées par leurs messages et boutons désactivés.
 
 ## Captures et limites
 
-Captures actualisées dans `artifacts/` : `swarm-ux-stock-map.png`, `swarm-ux-fleet-map.png`, `swarm-ux-lab-incident.png`, et variantes Stock/Flotte/Lab à 1280 et 390 pixels. Les captures de simulation, inventaire secondaire, visite guidée et Arena restent présentes.
+Captures générées et inspectées : `artifacts/swarm-supply-large-stock.png`, `swarm-supply-mobile.png`, `swarm-supply-validation.png`. Le rendu utilise un nombre borné de cartons décoratifs, jamais un objet par unité de stock. Les captures historiques sont régénérées par les parcours de régression.
 
-La validation ne couvre pas chaque agencement possible. Firefox et Safari n’ont pas été testés. Le parseur reconnaît des intentions françaises locales et peut demander une formulation précise ; aucun LLM externe n’est utilisé. Les permissions limitent le prélèvement, pas la circulation.
+Stockage sans plafond métier sous garde-fou de 1 milliard d’unités par rayonnage/ajout ; capacité configurable jusqu’à 10 milliards d’unités d’espace ; commande jusqu’à 1 million d’unités. Pas de plafond 50/500 dans les nouvelles opérations. Anciennes capacités configurées préservées et modifiables vers Sans plafond métier. Carte 24 × 16, 24 robots, 200 commandes ouvertes, 2 000 commandes archivées et 100 produits. Un colis par trajet : une grande commande prend réellement du temps, des recharges peuvent être nécessaires. Les diagnostics ne garantissent pas l’absence d’un obstacle ajouté après création ; les blocages ultérieurs restent visibles et réparables. La coordination locale peut nécessiter de rouvrir un passage totalement fermé.
 
-Lab : 12 incidents actifs, 100 entrées par expérience. Une saturation retire réellement les autres bornes et un blocage de dépôt peut rester partiel si une case est occupée ou le budget manque ; le résultat l’indique. Les résolutions sont calculées à partir de l’état courant des éléments concernés. L’historique et les instantanés temporaires disparaissent au rechargement ; la sauvegarde locale reste manuelle et unique. Un enregistrement explicite pendant une expérience remplace cette sauvegarde.
-
-Les workers et Chromium ont nécessité l’exécution autorisée hors des restrictions du sandbox Windows. Aucun service externe, paiement ni déploiement public.
+Sauvegarde manuelle unique dans le navigateur ; conserver sa partie avant un scénario qui doit la remplacer. Les copies temporaires de démonstration/Lab et les duels restent en mémoire seulement. Aucun backend, cloud, LLM, déploiement, paiement ou changement de fichier personnel externe.

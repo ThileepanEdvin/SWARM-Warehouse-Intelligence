@@ -1,24 +1,26 @@
-import {Engine,PRICES} from './engine';
+import {Engine} from './engine';
 import type {OrderOptions} from './engine';
 import type {CopilotPlan} from './copilot';
-import {compatibleShelf,stockOperation,transaction} from './operations';
+import {stockOperation,transaction} from './operations';
+import {planSupply,productReference} from './supply';
 const fold=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[«»".!?]/g,'').replace(/\s+/g,' ').trim();
-const skuFor=(name:string)=>fold(name).toUpperCase().replace(/[^A-Z0-9]+/g,'_').slice(0,24);
+const skuFor=productReference;
 export function contextualIntent(e:Engine,input:string):CopilotPlan|undefined{
- const raw=fold(input),text=raw.replace(/^ajoute(?:-moi| moi)? (?:un stock de )?/,'ajoute ').replace(/^montre(?:-moi| moi) /,'montre ');
+ const raw=fold(input).replace(/(\d) (?=\d{3}(?:\D|$))/g,'$1'),text=raw.replace(/^ajoute(?:-moi| moi)? (?:un stock de )?/,'ajoute ').replace(/^montre(?:-moi| moi) /,'montre ');
  const info=(message:string,targetIds:string[]=[]):CopilotPlan=>({message,mutates:false,kind:'information',targetIds});
  const fail=(message:string):CopilotPlan=>({message,mutates:false,kind:'impossible'});
  const action=(message:string,execute:NonNullable<CopilotPlan['execute']>,targetIds:string[]=[]):CopilotPlan=>({message,mutates:true,kind:'confirmation',execute,targetIds});
  const product=(name:string)=>e.products.find(p=>fold(p.name)===fold(name)||fold(p.sku)===fold(name));
  const shelf=(code:string)=>e.state.tiles.find(t=>t.kind==='shelf'&&fold(t.location??t.id)===fold(code));
  const robot=(code:string)=>{const codeMatch=fold(code).replace(/^(?:le )?robot (\d+)$/,(_,n)=>`r${n.padStart(3,'0')}`);return e.state.robots.find(r=>fold(r.code??r.id)===codeMatch||fold(r.id)===codeMatch);};
- let m=text.match(/^cree (?:un produit )?(.+?) et ajoute (\d+) unites dans ([a-z]+-\d+)$/);
- let stock=m?{name:m[1],quantity:Number(m[2]),source:m[3],empty:false}:undefined;
- if(!stock){m=text.match(/^(?:ajoute|mets) (\d+) (.+?)(?: dans (un emplacement libre|[a-z]+-\d+))?$/);if(m)stock={name:m[2],quantity:Number(m[1]),source:m[3],empty:m[3]==='un emplacement libre'};}
- if(stock){const p=product(stock.name),sku=p?.sku??skuFor(stock.name),t=stock.source&&!stock.empty?shelf(stock.source):compatibleShelf(e,sku,stock.quantity,stock.empty);if(!t)return fail('Aucun emplacement compatible avec assez de capacité. Libérez un emplacement ou construisez un rayonnage.');if(t.sku!==sku&&((t.stock??0)>0||e.stockInfo(t).reserved))return fail(`${t.location} contient déjà un autre produit. Retirez explicitement son stock disponible avant de le changer.`);
- const probe=transactionPreview(e,copy=>stockOperation(copy,sku,p?.name??stock!.name,stock!.quantity,t.id));if(!probe.ok)return fail(probe.message);
- return action(`${p?'':`Créer ${stock.name} (SKU ${sku}, valeur 85 €, encombrement 1), puis `}ajouter ${stock.quantity} ${p?.name??stock.name} dans ${t.location}, coût ${stock.quantity*PRICES.stockUnit} €. Règle : même produit avec de la place, puis premier emplacement vide par référence.`,()=>stockOperation(e,sku,p?.name??stock!.name,stock!.quantity,t.id),[t.id]);}
- m=text.match(/^(?:dans quelle case se trouve|ou se trouve|ou est) (?:le |la |les |du )?(.+)$/);if(m){const p=product(m[1]);if(!p)return fail('Quel produit recherchez-vous ? Utilisez son nom exact ou son SKU.');const tiles=e.state.tiles.filter(t=>t.kind==='shelf'&&t.sku===p.sku&&(t.stock??0)>0);return info(tiles.length?`${p.name} : ${tiles.map(t=>`${t.location} (${e.stockInfo(t).available} disponibles)`).join(', ')}.`:'Aucune marchandise de ce produit sur les rayonnages.',tiles.map(t=>t.id));}
+ let m=text.match(/^cree (?:un produit )?(.+?) et ajoute (\d+) unites? dans (un (?:emplacement|rayonnage) libre|[a-z]+-\d+)$/);
+ let stock=m?{name:m[1],quantity:Number(m[2]),source:m[3],empty:m[3].startsWith('un ')}:undefined;
+ if(!stock){m=text.match(/^(?:ajoute|mets) (\d+) (.+?)(?: dans (un (?:emplacement|rayonnage) libre|[a-z]+-\d+))?$/);if(m)stock={name:m[2],quantity:Number(m[1]),source:m[3],empty:!!m[3]?.startsWith('un ')};}
+ if(stock){const p=product(stock.name),sku=p?.sku??skuFor(stock.name),t=stock.source&&!stock.empty?shelf(stock.source):undefined;if(stock.source&&!stock.empty&&!t)return fail('Rayonnage inconnu. Utilisez sa référence réelle, par exemple A-1.');
+ const draft=p??{sku,name:stock.name,value:85,color:'#75d7e5',size:1},plan=planSupply(e,sku,stock.quantity,t?.id,stock.empty,p?undefined:draft);if(!plan.ok)return fail(plan.message);
+ return action(`${p?'':`Créer ${stock.name} (SKU ${sku}, valeur 85 €, encombrement 1), puis `}ajouter ${stock.quantity} ${p?.name??stock.name} : ${plan.message}. ${e.state.supplyMode==='free'?'Sandbox : approvisionnement gratuit':`Coût ${plan.cost} €`}. Même produit avec de la place, puis emplacements vides par référence.`,()=>stockOperation(e,sku,p?.name??stock!.name,stock!.quantity,t?.id,stock!.empty,p?undefined:draft),plan.placements.map(t=>t.id));}
+
+ m=text.match(/^(?:dans quelle case se trouve|ou se trouve|ou est) (?:le |la |les |du |mon |ma )?(.+)$/);if(m){const p=product(m[1]);if(!p)return fail('Quel produit recherchez-vous ? Utilisez son nom exact ou son SKU.');const tiles=e.state.tiles.filter(t=>t.kind==='shelf'&&t.sku===p.sku&&(t.stock??0)>0);return info(tiles.length?`${p.name} : ${tiles.map(t=>`${t.location} (${e.stockInfo(t).available} disponibles)`).join(', ')}.`:'Aucune marchandise de ce produit sur les rayonnages.',tiles.map(t=>t.id));}
  if(text==='montre les rayonnages presque vides'||text==='montre les emplacements presque vides'){const tiles=e.state.tiles.filter(t=>t.kind==='shelf'&&e.stockInfo(t).available<5);return info(tiles.length?tiles.map(t=>`${t.location} : ${e.stockInfo(t).available} disponibles`).join(' · '):'Aucun rayonnage avec moins de 5 unités disponibles.',tiles.map(t=>t.id));}
  if(text==='quels robots sont disponibles'){const robots=e.state.robots.filter(r=>r.state==='idle'&&!r.disabled&&r.battery>25);return info(robots.length?robots.map(r=>`${r.code} (${r.battery.toFixed(0)} %)`).join(', '):'Aucun robot immédiatement disponible.',robots.map(r=>r.id));}
  m=text.match(/^quels? robots? (?:peut|peuvent) recuperer (?:du |le |la )?(.+?)(?: de ([a-z]+-\d+))?$/);if(m){const p=product(m[1]),t=m[2]?shelf(m[2]):undefined;if(!p||m[2]&&!t)return fail('Produit ou emplacement inconnu.');const robots=e.state.robots.filter(r=>!r.disabled&&e.state.tiles.some(s=>s.kind==='shelf'&&s.sku===p.sku&&(!t||s.id===t.id)&&e.isAuthorized(r,s)));return info(robots.length?`Robots autorisés : ${robots.map(r=>`${r.code} (${r.state==='idle'?'disponible':r.state==='fault'?'en panne':'occupé ou en recharge'})`).join(', ')}. Stock, autonomie et trajet vérifiés à l’affectation.`:'Aucun robot autorisé par cette combinaison de règles.',robots.map(r=>r.id));}

@@ -1,3 +1,11 @@
+# Parcours de vérification 1.4
+
+Suivre le parcours stock/livraison du README dans une nouvelle partie vide : Paramètres → Nouvelle partie · zéro commande, confirmer. Une sauvegarde existante n’est jamais vidée automatiquement. Créer COCA sans stock, ajouter 100 automatiquement puis 50 manuellement dans A-1, livrer 10 en automatique puis 5 avec R001. Activer le Sandbox pour ajouter 1 000 puis 10 000 sans épuiser le budget fictif. Sauvegarder, recharger et vérifier quantités, permissions, recettes et commandes terminées.
+
+Tester une quantité négative ou décimale, une commande supérieure au stock et un robot interdit : raison visible, validation refusée et absence de mouvement. Le raccourci Approvisionner ce produit ouvre le formulaire. Le simple enregistrement du rayonnage ne change pas ses marchandises.
+
+Pour conserver les scénarios précédents, utiliser les démonstrations explicites ci-dessous. Le stock y est maintenant ajouté par son bouton dédié après enregistrement des paramètres.
+
 # Présenter SWARM 1.3 — parcours exact en six étapes
 
 Ouvrir http://127.0.0.1:5173/. Si nécessaire, lancer `npm run dev` depuis le projet. Pour préserver durablement votre progression, cliquez **Sauvegarder** avant la démonstration.
@@ -6,7 +14,7 @@ Ouvrir http://127.0.0.1:5173/. Si nécessaire, lancer `npm run dev` depuis le pr
 
 ## 1. Gérer le stock sur la carte
 
-Dans **Stocks & Commandes → Entrepôt**, cliquez **A-1**. Dans le panneau droit : choisissez **Coca-Cola**, saisissez **10** dans **Unités à ajouter à la validation**, choisissez **R001** dans **Robot prioritaire**, puis **Enregistrer les modifications**. Le stock réel devient 10 ; le budget baisse de 80 €. Survolez A-1 pour vérifier produit, total, disponible, réservations, capacité et priorité. Les mouvements sont consultables dans le panneau.
+Dans **Stocks & Commandes → Entrepôt**, cliquez **A-1**. Dans le panneau droit : choisissez **Coca-Cola**, choisissez **R001** dans **Robot prioritaire**, puis **Enregistrer les modifications**. Saisissez ensuite **10** dans **Quantité à ajouter ou retirer** et cliquez **Ajouter les marchandises**. Le stock réel devient 10 ; le budget baisse de 80 €. Survolez A-1 pour vérifier produit, total, disponible, réservations, capacité et priorité. Les mouvements sont consultables dans le panneau.
 
 ## 2. Ajouter du stock automatiquement
 
@@ -61,6 +69,6 @@ Assistant local à intentions prédéfinies, sans LLM externe. Les modifications
 
 Un emplacement contenant des marchandises ou réservations ne peut changer silencieusement de produit. Sans capacité ni emplacement compatible, l’opération est refusée sans mutation. Un produit encore inconnu peut être créé avec les paramètres clairement annoncés dans la confirmation.
 
-Grille 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 50 unités par commande et un colis par trajet. Lab : 12 incidents actifs et 100 entrées maximum par expérience. Une saturation retire réellement les autres bornes ; la restauration du Lab les récupère. Un dépôt peut rester accessible si des cases occupées empêchent un blocage complet. Les permissions concernent le prélèvement, pas les couloirs.
+Grille 24 × 16, 24 robots, 200 commandes ouvertes, 100 produits, 1 000 000 unités par commande et un colis par trajet. Lab : 12 incidents actifs et 100 entrées maximum par expérience. Une saturation retire réellement les autres bornes ; la restauration du Lab les récupère. Un dépôt peut rester accessible si des cases occupées empêchent un blocage complet. Les permissions concernent le prélèvement, pas les couloirs.
 
 Sauvegarde locale unique et manuelle, reprise en pause. Les parties conservées, l’historique et l’instantané du Lab, les confirmations en attente et les duels disparaissent au rechargement. Cliquer Sauvegarder pendant une expérience remplace volontairement la même sauvegarde. Aucun backend, compte, service payant ni déploiement public.

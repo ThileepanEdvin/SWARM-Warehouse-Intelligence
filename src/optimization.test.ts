@@ -4,7 +4,7 @@ import { compareStrategies } from './optimization';
 
 describe('reproducible optimization', () => {
   it('compares clones without advancing or mutating the live warehouse', async () => {
-    const live = new Engine(17);
+    const live = new Engine(17,{demo:true});
     const before = live.serialize();
     const results = await compareStrategies(before, 40);
     expect(live.serialize()).toBe(before);
@@ -17,6 +17,6 @@ describe('reproducible optimization', () => {
     }
   });
   it('rejects unbounded experiment durations', async () => {
-    await expect(compareStrategies(new Engine().serialize(), 100000)).rejects.toThrow();
+    await expect(compareStrategies(new Engine(42,{demo:true}).serialize(), 100000)).rejects.toThrow();
   });
 });

@@ -1,9 +1,12 @@
+import {Engine} from '../src/engine';
 import { test, expect } from '@playwright/test';
+
+test.beforeEach(async({page})=>{await page.addInitScript(snapshot=>{if(!localStorage.getItem('swarm-save'))localStorage.setItem('swarm-save',snapshot)},new Engine(42,{demo:true}).serialize())});
 
 test('intelligent demo explains scores, shows a real detour, and restores the original game', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.getByTitle('Mettre en pause (Espace)').click();
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
   const original = await page.evaluate(() => localStorage.getItem('swarm-save'));
@@ -45,7 +48,7 @@ test('live duel starts identically, pauses both engines, finishes and resets rep
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.getByTitle('Mettre en pause (Espace)').click();
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
   const original = await page.evaluate(() => localStorage.getItem('swarm-save'));
@@ -86,7 +89,7 @@ test('live duel starts identically, pauses both engines, finishes and resets rep
 });
 
 test('duel keyboard and rapid speed changes keep the live warehouse paused', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.getByTitle('Mettre en pause (Espace)').click();
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
   const original = await page.evaluate(() => localStorage.getItem('swarm-save'));
@@ -108,7 +111,7 @@ test('duel keyboard and rapid speed changes keep the live warehouse paused', asy
 });
 
 test('pause during real loading freezes handling, stock and telemetry across reload', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await expect(page.locator('g.robot[data-state="loading"]').first()).toBeVisible();
   await page.getByTitle('Mettre en pause (Espace)').click();
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
@@ -127,7 +130,7 @@ test('immersive view frames the complete warehouse and Escape restores the inter
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.getByTitle('Vue immersive').click();
   await expect(page.locator('.simulation-card')).toHaveClass(/immersive-card/);
   const dimensions = await page.locator('.simulation-card').boundingBox();
@@ -148,7 +151,7 @@ test('immersive view frames the complete warehouse and Escape restores the inter
 });
 
 test('demo incidents and charging use actual fleet states even after delayed clicks', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.locator('.sidebar').getByRole('button', { name: 'SWARM LAB', exact: true }).click();
   await page.getByRole('button', {name:'Visite guidée · Démo intelligente',exact:true}).click();
   await page.getByRole('button', { name: /Voir les livraisons/ }).click();
@@ -175,7 +178,7 @@ test('demo incidents and charging use actual fleet states even after delayed cli
 });
 
 test('camera zoom and dragging do not place equipment or alter the paused warehouse', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/');await page.getByTitle('Reprendre (Espace)').click();
   await page.getByTitle('Mettre en pause (Espace)').click();
   await page.getByRole('button', { name: 'Sauvegarder', exact: true }).click();
   const before = await page.evaluate(() => localStorage.getItem('swarm-save'));

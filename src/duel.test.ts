@@ -47,7 +47,7 @@ describe('independent visual algorithm duel', () => {
       if (seed === 77) expect(duel.winner).toBe('nearest');
       if (seed === 2026) expect(duel.winner).toBe('balanced');
     }
-    const empty = new Engine(); empty.state.robots = []; const tie = new DuelSession(empty.serialize(), 20); tie.tick(20);
+    const empty = new Engine(42,{demo:true}); empty.state.robots = []; const tie = new DuelSession(empty.serialize(), 20); tie.tick(20);
     expect(tie.winner).toBe('tie');
     expect(tie.metrics('nearest').completed).toBe(0);
   });
