@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-09T12:16:26.212830+00:00",
+  "scope": "README.md et captures/ ; noms sensibles aussi contrôlés dans les fichiers suivis",
+  "scannedEvidenceFiles": 25,
+  "secretPatternFindings": [],
+  "trackedSensitiveFilenameFindings": [],
+  "gitignore": "Exclusions existantes vérifiées ; aucune modification nécessaire.",
+  "limitations": "Contrôle de motifs courants, pas une garantie universelle de détection de secrets.",
+  "node": "v24.19.0",
+  "git": "git version 2.51.0.windows.1"
+}

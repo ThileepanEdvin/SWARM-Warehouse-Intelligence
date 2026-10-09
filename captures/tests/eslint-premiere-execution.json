@@ -1,0 +1,8 @@
+{
+  "command": "npm.cmd run lint",
+  "startedAt": "2026-10-09T12:13:49.636664+00:00",
+  "finishedAt": "2026-10-09T12:13:57.848869+00:00",
+  "durationSeconds": 8.219,
+  "exitCode": 1,
+  "log": "eslint.txt"
+}

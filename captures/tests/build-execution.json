@@ -1,0 +1,8 @@
+{
+  "command": "npm.cmd run build",
+  "startedAt": "2026-10-09T12:13:58.089726+00:00",
+  "finishedAt": "2026-10-09T12:14:13.211991+00:00",
+  "durationSeconds": 15.109,
+  "exitCode": 0,
+  "log": "build.txt"
+}

@@ -1,0 +1,91 @@
+{
+  "capturedAt": "2026-10-09T12:13:40.596Z",
+  "browser": "156.0.8078.4",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "method": "Interactions réelles dans une nouvelle session Chromium, sans injection de sauvegarde ni modification du moteur.",
+  "before": {
+    "stock": 100,
+    "revenue": 0,
+    "order": {
+      "unitValue": 12,
+      "id": "O058",
+      "sku": "COCA",
+      "quantity": 10,
+      "priority": 2,
+      "status": "pending",
+      "createdAt": 0,
+      "delivered": 0,
+      "reserved": 0,
+      "history": [
+        "Order created"
+      ]
+    }
+  },
+  "after": {
+    "stock": 90,
+    "revenue": 120,
+    "order": {
+      "unitValue": 12,
+      "id": "O058",
+      "sku": "COCA",
+      "quantity": 10,
+      "priority": 2,
+      "status": "completed",
+      "createdAt": 0,
+      "delivered": 10,
+      "reserved": 0,
+      "history": [
+        "Order created",
+        "Delivered"
+      ],
+      "assignments": [
+        {
+          "robotId": "R048",
+          "tick": 1
+        },
+        {
+          "robotId": "R049",
+          "tick": 2
+        },
+        {
+          "robotId": "R050",
+          "tick": 3
+        },
+        {
+          "robotId": "R051",
+          "tick": 4
+        },
+        {
+          "robotId": "R052",
+          "tick": 5
+        },
+        {
+          "robotId": "R053",
+          "tick": 6
+        },
+        {
+          "robotId": "R048",
+          "tick": 31
+        },
+        {
+          "robotId": "R049",
+          "tick": 36
+        },
+        {
+          "robotId": "R050",
+          "tick": 41
+        },
+        {
+          "robotId": "R051",
+          "tick": 46
+        }
+      ],
+      "completedAt": 99,
+      "income": 120
+    }
+  },
+  "pageErrors": []
+}

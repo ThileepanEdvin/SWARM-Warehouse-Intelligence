@@ -1,0 +1,210 @@
+[
+  {
+    "file": "artifacts/arena-benchmarks.json",
+    "bytes": 12628,
+    "sha256": "3e76cd61beb35ce6dc59440bb8205189b5ea75c98b5a1184898c82bdf42d6da3"
+  },
+  {
+    "file": "artifacts/swarm-arena-50.png",
+    "bytes": 375819,
+    "sha256": "1f5b8066733bbee3702d8ec91280cc5d18ad71aff008179aa7ea6edded309c7c",
+    "width": 1920,
+    "height": 2415
+  },
+  {
+    "file": "artifacts/swarm-arena-advanced-1280.png",
+    "bytes": 311648,
+    "sha256": "57247d34d2a0ac4165e59f8f12974f7af5ba204a3f16523334c22a5774e0b51b",
+    "width": 1280,
+    "height": 2370
+  },
+  {
+    "file": "artifacts/swarm-arena-advanced-1440.png",
+    "bytes": 310770,
+    "sha256": "3896b8b609817002020939198dd18cf7fef39bcf7ecbf4d16de6a35c6fa08cf7",
+    "width": 1440,
+    "height": 2340
+  },
+  {
+    "file": "artifacts/swarm-arena-advanced-390.png",
+    "bytes": 229323,
+    "sha256": "c3d5ac36653cbaf54a2b8302156290571797e1ba6566cda58a779acac7d686b0",
+    "width": 390,
+    "height": 3236
+  },
+  {
+    "file": "artifacts/swarm-arena-advanced-report.png",
+    "bytes": 374637,
+    "sha256": "8f4b62a88e1e3987efac9a1768b989d22ad230fe5a8c2edd1c7259733c676e19",
+    "width": 1920,
+    "height": 2691
+  },
+  {
+    "file": "artifacts/swarm-desktop.png",
+    "bytes": 210144,
+    "sha256": "209ede7b49f7386e95a60449a7697702079a9e899d4cd213a67980e82d6c5af4",
+    "width": 1440,
+    "height": 1041
+  },
+  {
+    "file": "artifacts/swarm-duel-live.png",
+    "bytes": 348651,
+    "sha256": "4701065d019b5c2eef7b9aef0b6c47bf0eed084082ebb29d9d8b28e8d62fb720",
+    "width": 1920,
+    "height": 2392
+  },
+  {
+    "file": "artifacts/swarm-duel-mobile.png",
+    "bytes": 244628,
+    "sha256": "42451a75ad5edd7f7fe9d3757ba2857d420fe0b29ad98eda0455574be987b46f",
+    "width": 390,
+    "height": 3421
+  },
+  {
+    "file": "artifacts/swarm-duel-report.png",
+    "bytes": 352240,
+    "sha256": "99d1e130eb403ddb30b32148fd656294b495411a2460db1a88f42a63a0c32a1b",
+    "width": 1920,
+    "height": 2415
+  },
+  {
+    "file": "artifacts/swarm-fleet-mobile.png",
+    "bytes": 108495,
+    "sha256": "d4646c5463c113e948ff294e105cfabdb0ffea11f49ba75c82a49374e2842028",
+    "width": 390,
+    "height": 1538
+  },
+  {
+    "file": "artifacts/swarm-fleet.png",
+    "bytes": 231530,
+    "sha256": "e107011e40f935033013b99b98c14d060756cbf835a47e3d4b0dd0a9feeca798",
+    "width": 1920,
+    "height": 1259
+  },
+  {
+    "file": "artifacts/swarm-immersive.png",
+    "bytes": 206423,
+    "sha256": "faa83d719456e8140b252d003892a0d19a8afedcd986924e245db1d9cd38aaeb",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "artifacts/swarm-intelligence.png",
+    "bytes": 256677,
+    "sha256": "02d0e3f48b104e876eece7800dcebb4413eab397c03a591b8f3065ee5533bf20",
+    "width": 1920,
+    "height": 1202
+  },
+  {
+    "file": "artifacts/swarm-inventory.png",
+    "bytes": 244751,
+    "sha256": "71bd4d7253d8d326beb3c6ca5b5a1a7ebae853d8cb143be30c0d21149299ee51",
+    "width": 1920,
+    "height": 1937
+  },
+  {
+    "file": "artifacts/swarm-lab.png",
+    "bytes": 317720,
+    "sha256": "f4ae6bb26390181e7adb417627674b088f7d7cf1af0362d7195d05daa6173113",
+    "width": 1920,
+    "height": 1753
+  },
+  {
+    "file": "artifacts/swarm-mobile.png",
+    "bytes": 108139,
+    "sha256": "6b9437d2912420d196cb4be846d27a28f50e29e996ca56faa3566608e7ff6058",
+    "width": 390,
+    "height": 1516
+  },
+  {
+    "file": "artifacts/swarm-reroute.png",
+    "bytes": 258786,
+    "sha256": "9c743ffe13596cf0b86fd4b06227dae4695ce313651ff2ab4bda522e1f0e7964",
+    "width": 1920,
+    "height": 1207
+  },
+  {
+    "file": "artifacts/swarm-supply-large-stock.png",
+    "bytes": 194127,
+    "sha256": "71e539a862231bd473f029f09b73642b2403f04c1bb6d5c1019cfaa5df58eb2e",
+    "width": 1280,
+    "height": 1118
+  },
+  {
+    "file": "artifacts/swarm-supply-mobile.png",
+    "bytes": 143988,
+    "sha256": "79f21ad0b18e4f7f415e85a63882796bdbb56fcda4db4552ccdc05d9efa48d24",
+    "width": 390,
+    "height": 2186
+  },
+  {
+    "file": "artifacts/swarm-supply-validation.png",
+    "bytes": 187879,
+    "sha256": "95ac548c85d72771afe91c60fcd601fbfd41060d4a7f9891a2982092f1c1222b",
+    "width": 1280,
+    "height": 1101
+  },
+  {
+    "file": "artifacts/swarm-ux-fleet-1280.png",
+    "bytes": 201381,
+    "sha256": "c501048160cf6b17b48ca7c0b8d9e27b08dcb4452d6af1f1523fc77b3b713df0",
+    "width": 1280,
+    "height": 1143
+  },
+  {
+    "file": "artifacts/swarm-ux-fleet-390.png",
+    "bytes": 108181,
+    "sha256": "d78e4f8c6f13c38b4c53dc03c94e1a0414d6ca7c19ae3433ce65516cccd69ab8",
+    "width": 390,
+    "height": 1538
+  },
+  {
+    "file": "artifacts/swarm-ux-fleet-map.png",
+    "bytes": 259981,
+    "sha256": "6ed3375b7d1e8db1f48e76bcf1ba1888786f2bbc7380baddec20fd8a2f711779",
+    "width": 1920,
+    "height": 1264
+  },
+  {
+    "file": "artifacts/swarm-ux-lab-1280.png",
+    "bytes": 247139,
+    "sha256": "d42cba105649edb320328fc36a69fce03bf529f32b687178b4b8017d7ad35e0a",
+    "width": 1280,
+    "height": 1544
+  },
+  {
+    "file": "artifacts/swarm-ux-lab-390.png",
+    "bytes": 160442,
+    "sha256": "3455bb34314b694ae0cfb958d8911f59c7e5111d6b95d140f0b0db44f2708a95",
+    "width": 390,
+    "height": 2178
+  },
+  {
+    "file": "artifacts/swarm-ux-lab-incident.png",
+    "bytes": 323073,
+    "sha256": "33030731ad1380bb68afe4a327c96cb8e9729683832baa535b9cd34ea911e9f6",
+    "width": 1920,
+    "height": 1748
+  },
+  {
+    "file": "artifacts/swarm-ux-stock-1280.png",
+    "bytes": 225514,
+    "sha256": "f1f301682097cd5044973d393a35095ba7262730beeeccda8b1e80dc6f6eaea1",
+    "width": 1280,
+    "height": 1230
+  },
+  {
+    "file": "artifacts/swarm-ux-stock-390.png",
+    "bytes": 155193,
+    "sha256": "e8a012ef09c4fbacb2f7c63bc5efcdc40b2e023ad314cb9df1a43dc24ed53156",
+    "width": 390,
+    "height": 2391
+  },
+  {
+    "file": "artifacts/swarm-ux-stock-map.png",
+    "bytes": 262653,
+    "sha256": "d3d9ef4129fab91348ba6a634d66ed53f888048adbbcc0c56e526a83f3f2373b",
+    "width": 1920,
+    "height": 1350
+  }
+]

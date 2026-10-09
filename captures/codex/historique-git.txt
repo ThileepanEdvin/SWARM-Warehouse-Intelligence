@@ -1,0 +1,4 @@
+855c5cf1b8ff3f7622bd27579a198b0ce8411791 | Thileepan Edvin | Finalize SWARM with advanced Arena and French project documentation
+579a1e9629b48e5dd527a7744a3c162d761491d3 | Codex | Restore point: stable SWARM 1.4 before advanced Arena
+6b05bf0cbe60914c79f82e996d0695e786a0276d | Codex | Restore point: SWARM 1.3 before simplified supply workflow
+fbfda913b694454e3b31631e40baa7fe2692aad4 | Codex | Restore point: SWARM 1.2 before map-first UX

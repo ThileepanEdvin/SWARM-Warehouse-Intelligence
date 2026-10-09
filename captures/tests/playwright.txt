@@ -1,0 +1,47 @@
+
+> swarm-warehouse@1.4.0 test:e2e
+> playwright test --workers=3 --reporter=list,json
+
+[WebServer] (node:11372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 3 workers
+
+(node:4476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  3 [chromium] › tests\e2e.spec.ts:10:1 › real playback pauses, advances, and preserves an explicitly saved state (11.0s)
+  ok  4 [chromium] › tests\e2e.spec.ts:34:1 › order creation validates inputs and laboratory failure changes the real fleet (3.2s)
+  ok  5 [chromium] › tests\e2e.spec.ts:59:1 › editor places equipment, rejects occupied cells and debits only successful purchases (2.0s)
+  ok  1 [chromium] › tests\arena.spec.ts:4:1 › all six independent strategies, presets, validation, locked pause, reset and preserved main game (16.6s)
+  ok  6 [chromium] › tests\e2e.spec.ts:74:1 › responsive screens render without console exceptions and capture real screenshots (3.4s)
+  ok  8 [chromium] › tests\e2e.spec.ts:88:1 › autonomous dispatch delivers stock-backed orders and corrupt saves recover safely (5.3s)
+  ok  9 [chromium] › tests\e2e.spec.ts:108:1 › strategy comparison runs both real scenarios without mutating the paused warehouse (3.0s)
+  ok  2 [chromium] › tests\management.spec.ts:5:1 › presentation 1 creates a product, stocks A-1 and delivers five real units with R001 (29.1s)
+  ok 11 [chromium] › tests\management.spec.ts:19:1 › presentation 2 laboratory fault, paid repair, restoration and guided fusion (3.6s)
+  ok 10 [chromium] › tests\premium.spec.ts:6:1 › intelligent demo explains scores, shows a real detour, and restores the original game (6.0s)
+  ok  7 [chromium] › tests\arena.spec.ts:9:1 › identical Priority First teams finish with real equal statistics and exact replay (25.8s)
+  ok 14 [chromium] › tests\arena.spec.ts:12:1 › Eco Drive versus Sprint shows both maps, live metrics and responsive selectors (14.1s)
+  ok 13 [chromium] › tests\premium.spec.ts:45:1 › live duel starts identically, pauses both engines, finishes and resets reproducibly (43.5s)
+  ok 12 [chromium] › tests\management.spec.ts:26:1 › presentation 3 arena 50 orders two minutes, equal cameras and repeatable results (47.9s)
+  ok 16 [chromium] › tests\premium.spec.ts:91:1 › duel keyboard and rapid speed changes keep the live warehouse paused (5.3s)
+  ok 17 [chromium] › tests\management.spec.ts:32:1 › Copilot requires confirmation, handles ambiguity and uses true catalogue (2.1s)
+  ok 19 [chromium] › tests\management.spec.ts:36:1 › management tables and fleet remain usable on mobile without page overflow (2.2s)
+  ok 18 [chromium] › tests\premium.spec.ts:115:1 › pause during real loading freezes handling, stock and telemetry across reload (4.1s)
+  ok 20 [chromium] › tests\management.spec.ts:39:1 › shelf card opens a source-specific order and Lab restores after an editor visit (2.5s)
+  ok 21 [chromium] › tests\premium.spec.ts:131:1 › immersive view frames the complete warehouse and Escape restores the interface (1.8s)
+  ok 23 [chromium] › tests\premium.spec.ts:155:1 › demo incidents and charging use actual fleet states even after delayed clicks (5.4s)
+  ok 24 [chromium] › tests\premium.spec.ts:182:1 › camera zoom and dragging do not place equipment or alter the paused warehouse (2.5s)
+  ok 15 [chromium] › tests\supply.spec.ts:7:1 › normal game: empty catalogue stock, supply 100 and 50, deliver automatic and manual orders, large supply and save (48.7s)
+  ok 25 [chromium] › tests\supply.spec.ts:13:1 › visible validation refuses insufficient stock and invalid quantities; shelf settings do not supply stock (2.6s)
+  ok 26 [chromium] › tests\supply.spec.ts:16:1 › new product supply and Copilot use the same large-quantity workflow on mobile (2.1s)
+  ok 22 [chromium] › tests\ux.spec.ts:9:1 › six-step presentation: map stock, automatic stock, location, robot rules, real delivery and paid Lab repair (24.4s)
+  ok 27 [chromium] › tests\ux.spec.ts:17:1 › map multi-selection can cancel without changes, then persists only confirmed locations (2.6s)
+  ok 28 [chromium] › tests\ux.spec.ts:20:1 › Lab exposes relevant parameters only, selects a free cell and keeps separate incident resolutions across navigation (2.2s)
+  ok 29 [chromium] › tests\ux.spec.ts:23:1 › new map workspaces and Copilot remain readable at laptop and mobile sizes (3.0s)
+  ok 30 [chromium] › tests\ux.spec.ts:27:1 › fleet actions follow real availability, charge repairs once and reactivate administrative suspension (1.8s)
+
+  30 passed (2.1m)

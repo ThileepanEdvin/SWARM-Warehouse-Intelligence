@@ -1,0 +1,8 @@
+{
+  "command": "npm.cmd run typecheck",
+  "startedAt": "2026-10-09T12:13:42.690925+00:00",
+  "finishedAt": "2026-10-09T12:13:49.467995+00:00",
+  "durationSeconds": 6.781,
+  "exitCode": 0,
+  "log": "typecheck.txt"
+}

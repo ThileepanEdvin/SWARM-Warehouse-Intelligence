@@ -1,0 +1,10 @@
+
+> swarm-warehouse@1.4.0 lint
+> eslint .
+
+
+C:\Users\EDVIN\Documents\Application_SWARM\captures\outils\capturer-commandes.mjs
+  8:134  error  'localStorage' is not defined  no-undef
+
+✖ 1 problem (1 error, 0 warnings)
+

@@ -234,3 +234,17 @@ Voir [ARENA.md](ARENA.md) pour les mesures de référence et leur interprétatio
 - [Historique des évolutions](CHANGELOG.md)
 
 Les fichiers générés, dépendances, configurations locales, clés privées et fichiers temporaires sont exclus par `.gitignore`. L’historique Git existant et ses points de restauration sont conservés.
+
+
+## Rendu TP3 : captures et validation finale
+
+Les [preuves complètes du TP3](captures/README.md) regroupent les nouvelles captures de commandes et d’Analytics, l’inventaire des **29 captures existantes conservées** et les journaux authentiques des contrôles exécutés le 9 octobre 2026. Les vues de simulation, stocks, flotte, SWARM LAB, SWARM ARENA et résultats de comparaison restent dans [artifacts/](artifacts/).
+
+- [Commande créée](captures/application/commandes-creees.png) et [livraison terminée](captures/application/commandes-livrees.png) : 10 unités livrées, stock 100 → 90, revenu 120 €.
+- [TypeScript](captures/tests/typecheck.txt), [ESLint](captures/tests/eslint.txt) et [build](captures/tests/build.txt) : commandes et codes de retour dans les fichiers d’exécution associés.
+- [Tests métier détaillés](captures/tests/vitest-results.json) et [tests navigateur détaillés](captures/tests/playwright-results.json), accompagnés de leurs journaux bruts.
+- [Preuves Codex disponibles et capture manuelle restante](captures/README.md#codex-outils-et-limites-des-preuves) : aucune preuve artificielle.
+
+Cette finalisation ajoute uniquement documentation et preuves ; le comportement de l’application présentée reste inchangé.
+
+Résultats finaux de la collecte : **TypeScript, ESLint et build réussis (code 0), 113/113 tests métier et 30/30 tests Playwright réussis**, sans test ignoré ou en échec.

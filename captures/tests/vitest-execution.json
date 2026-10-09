@@ -1,0 +1,8 @@
+{
+  "command": "npm.cmd test -- --reporter=default --reporter=json --outputFile=captures/tests/vitest-results.json",
+  "startedAt": "2026-10-09T12:14:13.411338+00:00",
+  "finishedAt": "2026-10-09T12:14:26.263578+00:00",
+  "durationSeconds": 12.859,
+  "exitCode": 0,
+  "log": "vitest.txt"
+}
