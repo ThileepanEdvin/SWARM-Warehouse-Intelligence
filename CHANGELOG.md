@@ -1,3 +1,7 @@
+# Extension SWARM ARENA — 9 octobre 2026
+
+Six stratégies réellement branchées, sélecteurs A/B indépendants, quatre scénarios, paramètres verrouillés pendant le duel, métriques d’urgences/autonomie/équité et rapport par critère. Copies indépendantes, pas identiques et rejeu conservés ; aucune refonte des autres modules. Formules et exemples mesurés dans [ARENA.md](ARENA.md).
+
 # Version 1.4 — stocks, commandes et approvisionnement
 
 - Partie normale vide et démonstrations explicitement chargées ; sauvegardes existantes conservées.

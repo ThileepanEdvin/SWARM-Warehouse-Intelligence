@@ -97,6 +97,8 @@ test('duel keyboard and rapid speed changes keep the live warehouse paused', asy
   await page.locator('body').click({ position: { x: 2, y: 2 } });
   await page.keyboard.press('Space');
   await expect(page.getByTestId('duel')).toHaveAttribute('data-status', 'running');
+  await expect(page.getByLabel('Durée du duel')).toBeDisabled();
+  await page.getByTitle('Réinitialiser le duel').click();
   await page.getByLabel('Durée du duel').selectOption('600');
   await expect(page.getByTestId('duel')).toHaveAttribute('data-status', 'paused');
   await expect(page.getByTestId('duel')).toHaveAttribute('data-tick', '0');

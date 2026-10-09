@@ -1,3 +1,7 @@
+## Extension ciblée SWARM ARENA
+
+Le registre `arenaStrategies.ts` expose ordre, admissibilité, score et description pour six stratégies. `Engine.configureArenaStrategy` active une branche d’affectation uniquement sur les copies du duel. Les règles physiques et l’ordonnanceur principal restent inchangés. Chaque moteur conserve ses compteurs de travail locaux ; le duel partage uniquement un instantané sérialisé immutable. Voir [ARENA.md](ARENA.md) pour les formules, métriques, compatibilité API et limites. Point stable : `579a1e9`, `restore/swarm-1.4-before-arena`.
+
 # Évolution 1.4
 
 `limits.ts` définit les limites entières sûres. `supply.ts` prépare un placement déterministe en lecture seule : même SKU puis vide, capacité selon encombrement, autorisation et accès par A*. `operations.ts` applique le plan sur une copie validée puis conserve les identités des entités lors du commit. `SupplyForm.tsx` et `copilotIntents.ts` partagent ces opérations. `Management.tsx` sépare paramètres, approvisionnement et commandes.

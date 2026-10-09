@@ -1,0 +1,562 @@
+[
+  {
+    "scenario": "batteries",
+    "count": 50,
+    "seconds": 120,
+    "strategyA": "nearest",
+    "strategyB": "guardian",
+    "teamA": {
+      "total": 50,
+      "queued": 21,
+      "charging": 1,
+      "urgent": 8,
+      "urgentAverageTime": 51.0625,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 58,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 6,
+          "deliveries": 6,
+          "workSeconds": 75,
+          "distance": 120
+        },
+        {
+          "code": "R002",
+          "assignments": 13,
+          "deliveries": 12,
+          "workSeconds": 120,
+          "distance": 141
+        },
+        {
+          "code": "R003",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 74.5,
+          "distance": 122
+        },
+        {
+          "code": "R004",
+          "assignments": 13,
+          "deliveries": 12,
+          "workSeconds": 120,
+          "distance": 139
+        },
+        {
+          "code": "R005",
+          "assignments": 10,
+          "deliveries": 10,
+          "workSeconds": 104.5,
+          "distance": 150
+        },
+        {
+          "code": "R006",
+          "assignments": 13,
+          "deliveries": 12,
+          "workSeconds": 120,
+          "distance": 136
+        }
+      ],
+      "fairness": 92.82560706401766,
+      "completed": 26,
+      "pending": 24,
+      "busy": 4,
+      "impossible": 0,
+      "distance": 808,
+      "energy": 123.60000000000194,
+      "averageTime": 62.36538461538461,
+      "waiting": 8,
+      "stalled": 0,
+      "costs": 7.371999999999872,
+      "revenue": 6510
+    },
+    "teamB": {
+      "total": 50,
+      "queued": 22,
+      "charging": 0,
+      "urgent": 8,
+      "urgentAverageTime": 53.9375,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 55,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 75,
+          "distance": 120
+        },
+        {
+          "code": "R002",
+          "assignments": 12,
+          "deliveries": 11,
+          "workSeconds": 120,
+          "distance": 148
+        },
+        {
+          "code": "R003",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 75,
+          "distance": 123
+        },
+        {
+          "code": "R004",
+          "assignments": 12,
+          "deliveries": 11,
+          "workSeconds": 120,
+          "distance": 148
+        },
+        {
+          "code": "R005",
+          "assignments": 11,
+          "deliveries": 11,
+          "workSeconds": 111,
+          "distance": 152
+        },
+        {
+          "code": "R006",
+          "assignments": 12,
+          "deliveries": 11,
+          "workSeconds": 120,
+          "distance": 150
+        }
+      ],
+      "fairness": 92.50764525993884,
+      "completed": 25,
+      "pending": 25,
+      "busy": 5,
+      "impossible": 0,
+      "distance": 841,
+      "energy": 122.46000000000191,
+      "averageTime": 63.96,
+      "waiting": 7,
+      "stalled": 0,
+      "costs": 7.292499999999859,
+      "revenue": 6180
+    },
+    "winner": "nearest"
+  },
+  {
+    "scenario": "urgent",
+    "count": 100,
+    "seconds": 60,
+    "strategyA": "nearest",
+    "strategyB": "priority",
+    "teamA": {
+      "total": 100,
+      "queued": 64,
+      "charging": 0,
+      "urgent": 0,
+      "urgentAverageTime": 0,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 30,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 60,
+          "distance": 72
+        },
+        {
+          "code": "R002",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 76
+        },
+        {
+          "code": "R003",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 79
+        },
+        {
+          "code": "R004",
+          "assignments": 5,
+          "deliveries": 4,
+          "workSeconds": 60,
+          "distance": 80
+        },
+        {
+          "code": "R005",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 76
+        },
+        {
+          "code": "R006",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 75
+        }
+      ],
+      "fairness": 98.68421052631578,
+      "completed": 30,
+      "pending": 70,
+      "busy": 6,
+      "impossible": 0,
+      "distance": 458,
+      "energy": 72.60000000000001,
+      "averageTime": 37.11666666666667,
+      "waiting": 4.5,
+      "stalled": 0,
+      "costs": 1.8320000000000014,
+      "revenue": 3460
+    },
+    "teamB": {
+      "total": 100,
+      "queued": 64,
+      "charging": 0,
+      "urgent": 32,
+      "urgentAverageTime": 37.78125,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 32,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 60,
+          "distance": 72
+        },
+        {
+          "code": "R002",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 79
+        },
+        {
+          "code": "R003",
+          "assignments": 5,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 78
+        },
+        {
+          "code": "R004",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 73
+        },
+        {
+          "code": "R005",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 60,
+          "distance": 72
+        },
+        {
+          "code": "R006",
+          "assignments": 6,
+          "deliveries": 6,
+          "workSeconds": 60,
+          "distance": 66
+        }
+      ],
+      "fairness": 99.2248062015504,
+      "completed": 32,
+      "pending": 68,
+      "busy": 4,
+      "impossible": 0,
+      "distance": 440,
+      "energy": 69.89999999999992,
+      "averageTime": 37.78125,
+      "waiting": 7.5,
+      "stalled": 0,
+      "costs": 1.7600000000000013,
+      "revenue": 3700
+    },
+    "winner": "balanced"
+  },
+  {
+    "scenario": "energy",
+    "count": 50,
+    "seconds": 120,
+    "strategyA": "nearest",
+    "strategyB": "eco",
+    "teamA": {
+      "total": 50,
+      "queued": 29,
+      "charging": 0,
+      "urgent": 7,
+      "urgentAverageTime": 62,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 38,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 120,
+          "distance": 189
+        },
+        {
+          "code": "R002",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 120,
+          "distance": 196
+        },
+        {
+          "code": "R003",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 120,
+          "distance": 198
+        },
+        {
+          "code": "R004",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 120,
+          "distance": 195
+        },
+        {
+          "code": "R005",
+          "assignments": 10,
+          "deliveries": 9,
+          "workSeconds": 120,
+          "distance": 168
+        },
+        {
+          "code": "R006",
+          "assignments": 9,
+          "deliveries": 8,
+          "workSeconds": 120,
+          "distance": 169
+        }
+      ],
+      "fairness": 94.01041666666666,
+      "completed": 18,
+      "pending": 32,
+      "busy": 6,
+      "impossible": 0,
+      "distance": 1115,
+      "energy": 171.36000000000377,
+      "averageTime": 64.91666666666667,
+      "waiting": 3.5,
+      "stalled": 0,
+      "costs": 4.459999999999952,
+      "revenue": 4080
+    },
+    "teamB": {
+      "total": 50,
+      "queued": 34,
+      "charging": 0,
+      "urgent": 5,
+      "urgentAverageTime": 56,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 25,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 3,
+          "deliveries": 2,
+          "workSeconds": 120,
+          "distance": 220
+        },
+        {
+          "code": "R002",
+          "assignments": 5,
+          "deliveries": 4,
+          "workSeconds": 120,
+          "distance": 204
+        },
+        {
+          "code": "R003",
+          "assignments": 4,
+          "deliveries": 3,
+          "workSeconds": 120,
+          "distance": 211
+        },
+        {
+          "code": "R004",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 120,
+          "distance": 200
+        },
+        {
+          "code": "R005",
+          "assignments": 6,
+          "deliveries": 5,
+          "workSeconds": 120,
+          "distance": 192
+        },
+        {
+          "code": "R006",
+          "assignments": 7,
+          "deliveries": 6,
+          "workSeconds": 120,
+          "distance": 191
+        }
+      ],
+      "fairness": 90.57971014492753,
+      "completed": 11,
+      "pending": 39,
+      "busy": 6,
+      "impossible": 0,
+      "distance": 1218,
+      "energy": 200.640000000005,
+      "averageTime": 66.81818181818181,
+      "waiting": 2,
+      "stalled": 0,
+      "costs": 4.871999999999907,
+      "revenue": 2430
+    },
+    "winner": "nearest"
+  },
+  {
+    "scenario": "fleet",
+    "count": 100,
+    "seconds": 300,
+    "strategyA": "nearest",
+    "strategyB": "fairness",
+    "teamA": {
+      "total": 100,
+      "queued": 0,
+      "charging": 0,
+      "urgent": 41,
+      "urgentAverageTime": 93.01219512195122,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 100,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 18,
+          "deliveries": 18,
+          "workSeconds": 167,
+          "distance": 191
+        },
+        {
+          "code": "R002",
+          "assignments": 17,
+          "deliveries": 17,
+          "workSeconds": 171,
+          "distance": 205
+        },
+        {
+          "code": "R003",
+          "assignments": 16,
+          "deliveries": 16,
+          "workSeconds": 164.5,
+          "distance": 201
+        },
+        {
+          "code": "R004",
+          "assignments": 17,
+          "deliveries": 17,
+          "workSeconds": 172,
+          "distance": 205
+        },
+        {
+          "code": "R005",
+          "assignments": 16,
+          "deliveries": 16,
+          "workSeconds": 165,
+          "distance": 199
+        },
+        {
+          "code": "R006",
+          "assignments": 16,
+          "deliveries": 16,
+          "workSeconds": 168.5,
+          "distance": 203
+        }
+      ],
+      "fairness": 99.8003992015968,
+      "completed": 100,
+      "pending": 0,
+      "busy": 0,
+      "impossible": 0,
+      "distance": 1204,
+      "energy": 184.92000000000425,
+      "averageTime": 92.64,
+      "waiting": 9,
+      "stalled": 0,
+      "costs": 4.815999999999913,
+      "revenue": 11290
+    },
+    "teamB": {
+      "total": 100,
+      "queued": 0,
+      "charging": 0,
+      "urgent": 41,
+      "urgentAverageTime": 96.52439024390245,
+      "critical": 0,
+      "faults": 0,
+      "deliveredUnits": 100,
+      "distribution": [
+        {
+          "code": "R001",
+          "assignments": 18,
+          "deliveries": 18,
+          "workSeconds": 168,
+          "distance": 193
+        },
+        {
+          "code": "R002",
+          "assignments": 17,
+          "deliveries": 17,
+          "workSeconds": 175,
+          "distance": 203
+        },
+        {
+          "code": "R003",
+          "assignments": 17,
+          "deliveries": 17,
+          "workSeconds": 177,
+          "distance": 215
+        },
+        {
+          "code": "R004",
+          "assignments": 16,
+          "deliveries": 16,
+          "workSeconds": 170.5,
+          "distance": 207
+        },
+        {
+          "code": "R005",
+          "assignments": 17,
+          "deliveries": 17,
+          "workSeconds": 178.5,
+          "distance": 219
+        },
+        {
+          "code": "R006",
+          "assignments": 15,
+          "deliveries": 15,
+          "workSeconds": 173.5,
+          "distance": 211
+        }
+      ],
+      "fairness": 99.68102073365232,
+      "completed": 100,
+      "pending": 0,
+      "busy": 0,
+      "impossible": 0,
+      "distance": 1248,
+      "energy": 193.56000000000458,
+      "averageTime": 95.835,
+      "waiting": 23.5,
+      "stalled": 0,
+      "costs": 4.991999999999893,
+      "revenue": 11290
+    },
+    "winner": "nearest"
+  }
+]

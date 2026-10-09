@@ -1,8 +1,9 @@
+import type {StrategyId} from './arenaStrategies';
 import type { Point, Robot, SimulationState } from './engine';
 
 export type DecisionKind = 'assignment' | 'reroute' | 'charging' | 'waiting' | 'fault' | 'pickup' | 'delivery' | 'idle';
 export interface Decision { tick: number; kind: DecisionKind; message: string }
-export interface Assignment { tick: number; strategy: 'nearest' | 'balanced'; score: number; distance: number; battery: number; candidates: number; priority: number }
+export interface Assignment { tick: number; strategy: StrategyId; score: number; distance: number; battery: number; candidates: number; priority: number }
 export interface RouteChange { tick: number; path: Point[]; reason: string }
 export interface Signal extends Point { id: string; tick: number; kind: 'pickup' | 'delivery' | 'reward' | 'purchase' | 'reroute' | 'fault'; robotId?: string; amount?: number; orderId?: string }
 
