@@ -74,7 +74,9 @@ L’[historique Git réel](codex/historique-git.txt) contient trois commits ant�
 
 La capture de la fenêtre Codex et du terminal natif n’est pas accessible automatiquement avec les outils de cette session texte. Les journaux authentiques remplacent les captures du terminal pour les vérifications techniques.
 
-**Capture Codex à réaliser manuellement :** ouvrir cette conversation dans Codex, afficher le nom du projet SWARM, développer une sortie d’outil montrant les tests ou le push avec son hash, puis prendre une capture de cette fenêtre. Masquer tout secret ou conversation privée et l’enregistrer sous `captures/codex/codex-session-manuelle.png`. Ce fichier n’existe pas dans cette publication et aucune capture Codex n’a été fabriquée. Aucune capture manuelle de l’application n’est nécessaire.
+**Capture Codex ajoutée manuellement et vérifiée :** [codex-validation.png](codex/codex-validation.png) montre l’interface Codex, le projet SWARM, une partie de la demande de finalisation et le compte rendu du précédent push sur `main` (commit `1272000`). L’image a été fournie par l’utilisateur, puis contrôlée visuellement : son contenu est lisible. Elle montre la conversation et son compte rendu, sans sortie d’outil développée ; les preuves détaillées des commandes et des tests restent les journaux authentiques référencés ci-dessus. Aucune capture Codex n’a été générée ou reconstituée. Aucune capture manuelle de l’application n’est nécessaire.
+
+![Interface Codex et compte rendu de finalisation SWARM](codex/codex-validation.png)
 
 ## Publication et confidentialité
 
